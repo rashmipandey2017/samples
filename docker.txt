@@ -1,0 +1,66 @@
+I have cretaeted docker in my system with VM , in search box type docker quick start terminal ,
+type docker info -> it will tell info about docker
+https://www.youtube.com/watch?v=JRZNJfMFZXg
+
+cretae docker image(folder :-> /c/Program Files/Docker Toolbox)
+1. docker file/image create
+vim dockerfile
+
+#This is sample docker image cretaed by rashmi, its mysql images
+FROM mysql
+
+ENV MYSQL_USER=testuser \
+    MYSQL_PASSWORD=test \
+    MYSQL_DATABASE=dev \
+    MYSQL_ROOT_PASSWORD=letmein \
+    MYSQL_LOG_DIR=/var/log/mysql
+
+
+ EXPOSE 3306/tcp
+
+
+2, built docker image
+$docker build -t dockerfile .            (dokerfile -is docker file name)
+
+3. to check this image docker container running or not
+docker images  (see ur image in all running docker images)
+
+4. now we have succefully created one docker images , and we can create instance/container of this image by ruuning iamge
+$ docker run -d dockerfile   (it will create a long id  and will start process in background -d)
+
+5.below big no , which come from above script
+$ docker exec -it f88ee151559a4e29cea3bd05fffc907cd858fbdfd02d8f51f7a1b4bd7ccccda0 /bin/bash
+
+6# mysql -u root -p
+pass: <provide root user password>
+mysql>
+
+hurray ur first docker-container which is like a mysql docker running,...
+
+  
+
+docker archite
+https://www.tutorialspoint.com/docker/docker_architecture.htm
+https://severalnines.com/blog/mysql-docker-containers-understanding-basics
+
+$ docker run hello-world    (where hello-world is a docker image, locally or in dcoker hub if not pretsent locally)
+                             when we running docker image using this commnad , it cretae docker container and run all insturction which mention in docker image
+ 
+$docker images  (to see al running iamges in docker)
+
+
+$docker rmi (to remove docker image and docker container)
+There is a difference between docker images and docker containers. Check this SO Question.
+
+In short, a container is a running instance of an image. which is why you cannot delete an image if there is a running container from that image. You just need to delete the container first.
+
+Docker ps -a               # Lists containers (and tells you which images they are spun from)
+Docker images              # Lists images  
+Docker rm <container_id>   # Removes a container
+
+Docker rmi <image_id>      # Removes an image 
+                           # Will fail if there is a running instance of that image i.e. container
+
+Docker rmi -f <image_id>   # Forces removal of image even if it is referenced in multiple repositories, 
+                           # i.e. same image id given multiple names/tags 
+                           # Will still fail if there is a docker container referencing i
